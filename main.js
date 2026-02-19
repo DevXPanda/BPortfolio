@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ---- Contact Form (Google Apps Script Integration) ----
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHtNaKW9HynO1yUKpTX09tYK_96VAQibhDNnXmzkrp78brIF8FV6G4HXPy33BxcOp4/exec'; // ← Replace with your deployed Web App URL
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHtNaKW9HynO1yUKpTX09tYK_96VAQibhDNnXmzkrp78brIF8FV6G4HXPy33BxcOp4/exec';
 
     const contactForm = document.getElementById('contactForm');
 
@@ -215,15 +215,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const originalHTML = btn.innerHTML;
 
         // Get form values
-        const formData = {
-            name: document.getElementById('formName').value.trim(),
-            email: document.getElementById('formEmail').value.trim(),
-            subject: document.getElementById('formSubject').value.trim(),
-            message: document.getElementById('formMessage').value.trim()
-        };
+        const name = document.getElementById('formName').value.trim();
+        const email = document.getElementById('formEmail').value.trim();
+        const subject = document.getElementById('formSubject').value.trim();
+        const message = document.getElementById('formMessage').value.trim();
 
         // Validate
-        if (!formData.name || !formData.email || !formData.message) {
+        if (!name || !email || !message) {
             btn.innerHTML = '<span>Please fill all required fields</span> <i class="fas fa-exclamation-circle"></i>';
             btn.style.background = 'linear-gradient(135deg, #ff9800, #ffa726)';
             setTimeout(() => {
@@ -239,29 +237,32 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.style.opacity = '0.8';
 
         try {
-            const response = await fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify(formData)
+            // Build URL with query params — most reliable method for Google Apps Script
+            const params = new URLSearchParams();
+            params.append('name', name);
+            params.append('email', email);
+            params.append('subject', subject || 'No Subject');
+            params.append('message', message);
+
+            const submitUrl = GOOGLE_SCRIPT_URL + '?' + params.toString();
+
+            // Use GET request with query params (avoids CORS issues entirely)
+            await fetch(submitUrl, {
+                method: 'GET',
+                mode: 'no-cors'
             });
 
-            const result = await response.json();
+            // Success
+            btn.innerHTML = '<span>Sent Successfully!</span> <i class="fas fa-check-circle"></i>';
+            btn.style.background = 'linear-gradient(135deg, #4caf50, #66bb6a)';
+            btn.style.opacity = '1';
+            contactForm.reset();
 
-            if (result.status === 'success') {
-                // Success
-                btn.innerHTML = '<span>Sent Successfully!</span> <i class="fas fa-check-circle"></i>';
-                btn.style.background = 'linear-gradient(135deg, #4caf50, #66bb6a)';
-                btn.style.opacity = '1';
-                contactForm.reset();
-
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-                    btn.style.background = '';
-                    btn.disabled = false;
-                }, 4000);
-            } else {
-                throw new Error(result.message || 'Something went wrong');
-            }
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.style.background = '';
+                btn.disabled = false;
+            }, 4000);
 
         } catch (error) {
             console.error('Form submission error:', error);
