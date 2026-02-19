@@ -319,5 +319,102 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ---- Butterfly Nature Effect ----
+    const butterflyContainer = document.getElementById('butterflyContainer');
+    const colors = ['yellow', 'blue', 'orange', 'pink', 'white'];
+    const sizes = ['small', 'medium'];
+    const butterflies = [];
+
+    const createButterfly = () => {
+        const butterfly = document.createElement('div');
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const size = sizes[Math.floor(Math.random() * sizes.length)];
+
+        butterfly.className = `butterfly ${color} ${size}`;
+        butterfly.innerHTML = `
+            <div class="butterfly-wings">
+                <div class="wing wing-left"></div>
+                <div class="wing wing-right"></div>
+            </div>
+        `;
+
+        // Random start position
+        butterfly.style.left = Math.random() * 100 + 'vw';
+        butterfly.style.top = Math.random() * 100 + 'vh';
+
+        butterflyContainer.appendChild(butterfly);
+
+        const bObj = {
+            el: butterfly,
+            isSettled: false,
+            targetX: 0,
+            targetY: 0,
+            timer: null
+        };
+
+        butterflies.push(bObj);
+        moveButterfly(bObj);
+    };
+
+    const moveButterfly = (b) => {
+        if (b.isSettled) return;
+
+        const x = Math.random() * 90; // 0-90vw
+        const y = Math.random() * 90; // 0-90vh
+        const rot = (Math.random() * 360);
+
+        b.el.classList.remove('settled');
+        b.el.style.left = x + 'vw';
+        b.el.style.top = y + 'vh';
+        b.el.style.transform = `rotateZ(${rot}deg) rotateX(20deg)`;
+
+        // Randomly decide when to "settle"
+        clearTimeout(b.timer);
+        b.timer = setTimeout(() => {
+            if (Math.random() > 0.4) {
+                settleButterfly(b);
+            } else {
+                moveButterfly(b);
+            }
+        }, 4000 + Math.random() * 3000);
+    };
+
+    const settleButterfly = (b) => {
+        b.isSettled = true;
+        b.el.classList.add('settled');
+
+        // Subtle tilt when sitting
+        const currentRot = b.el.style.transform.match(/rotateZ\((.*)deg\)/);
+        const rot = currentRot ? currentRot[1] : 0;
+        b.el.style.transform = `rotateZ(${rot}deg) rotateX(60deg) scale(0.9)`;
+    };
+
+    const takeOff = () => {
+        butterflies.forEach(b => {
+            if (b.isSettled) {
+                b.isSettled = false;
+                // Add a small delay so they don't all take off at the exact same millisecond
+                setTimeout(() => moveButterfly(b), Math.random() * 500);
+            }
+        });
+    };
+
+    // Initial spawn
+    for (let i = 0; i < 6; i++) {
+        setTimeout(createButterfly, i * 800);
+    }
+
+    // Take off on scroll
+    let scrollTimer;
+    window.addEventListener('scroll', () => {
+        takeOff();
+
+        // Also handle the case where they might settle during active scrolling
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+            // Optional: logic to encourage perching after scroll stops
+        }, 200);
+    });
+
     console.log('%c✨ Priya Yadav Portfolio Loaded Successfully!', 'color: #FF6B8A; font-size: 14px; font-weight: bold;');
 });

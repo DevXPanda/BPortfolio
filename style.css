@@ -1621,3 +1621,152 @@ a.contact-value:hover {
         grid-template-columns: 1fr;
     }
 }
+
+/* ============ BUTTERFLY EFFECTS ============ */
+.butterfly-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.butterfly {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    transform-style: preserve-3d;
+    transition: left 4s cubic-bezier(0.45, 0.05, 0.55, 0.95),
+        top 4s cubic-bezier(0.45, 0.05, 0.55, 0.95),
+        transform 4s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    will-change: left, top, transform;
+}
+
+.butterfly-wings {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: butterfly-hover 2s ease-in-out infinite;
+}
+
+.wing {
+    position: absolute;
+    width: 50%;
+    height: 90%;
+    top: 5%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform-origin: right center;
+    animation: wing-flap-left 0.4s ease-in-out infinite alternate;
+}
+
+.wing-right {
+    left: 50%;
+    transform-origin: left center;
+    animation: wing-flap-right 0.4s ease-in-out infinite alternate;
+}
+
+/* Butterfly Color Variants (using SVG masks for realistic texture) */
+.butterfly.yellow .wing {
+    background: radial-gradient(circle at 30% 30%, #fff7ad, #ffd700);
+    border-radius: 50% 50% 20% 80%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.butterfly.blue .wing {
+    background: radial-gradient(circle at 30% 30%, #ade8ff, #00bfff);
+    border-radius: 50% 50% 20% 80%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.butterfly.orange .wing {
+    background: radial-gradient(circle at 30% 30%, #ffd0ad, #ff8c00);
+    border-radius: 50% 50% 20% 80%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.butterfly.pink .wing {
+    background: radial-gradient(circle at 30% 30%, #ffade2, #ff69b4);
+    border-radius: 50% 50% 20% 80%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.butterfly.white .wing {
+    background: radial-gradient(circle at 30% 30%, #ffffff, #f0f0f0);
+    border-radius: 50% 50% 20% 80%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Butterfly Body */
+.butterfly::after {
+    content: '';
+    position: absolute;
+    top: 25%;
+    left: 48%;
+    width: 4%;
+    height: 50%;
+    background: #333;
+    border-radius: 10px;
+    transform: translateZ(2px);
+}
+
+/* Sizes */
+.butterfly.medium {
+    width: 40px;
+    height: 40px;
+}
+
+.butterfly.small {
+    width: 22px;
+    height: 22px;
+}
+
+/* Settled State */
+.butterfly.settled .wing {
+    animation-play-state: paused;
+    transform: rotateY(-20deg);
+}
+
+.butterfly.settled .wing-right {
+    transform: rotateY(20deg);
+}
+
+.butterfly.settled .butterfly-wings {
+    animation-play-state: paused;
+}
+
+@keyframes wing-flap-left {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(75deg);
+    }
+}
+
+@keyframes wing-flap-right {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(-75deg);
+    }
+}
+
+@keyframes butterfly-hover {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
