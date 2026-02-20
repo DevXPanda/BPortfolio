@@ -9,12 +9,14 @@
     <meta name="keywords" content="Priya Yadav, MBA, Marketing, Human Resources, IndiaMART, Portfolio, Resume">
     <meta name="author" content="Priya Yadav">
     <title>Priya Yadav | Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="Public/Logo.svg">
+
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&family=Montserrat:wght@400;700&display=swap"
         rel="stylesheet">
 
     <!-- Font Awesome Icons -->
@@ -29,8 +31,47 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#hero" class="nav-logo">
-                <span class="logo-text">Priya Yadav</span>
-                <span class="logo-dot">.</span>
+                <svg width="180" height="60" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                    <!-- Gradient Definition -->
+                    <defs>
+                        <linearGradient id="pinkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ff7a9c" />
+                            <stop offset="100%" stop-color="#ff4f81" />
+                        </linearGradient>
+                        <linearGradient id="trailGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#ffb3c6" />
+                            <stop offset="100%" stop-color="#ff6f91" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Large P -->
+                    <text x="80" y="210" font-family="Playfair Display, serif" font-size="200" font-weight="700"
+                        fill="url(#pinkGradient)">
+                        P
+                    </text>
+
+                    <!-- Rocket Trail -->
+                    <path d="M140 180 C220 160, 260 110, 300 90" stroke="url(#trailGradient)" stroke-width="10"
+                        fill="none" stroke-linecap="round" />
+
+                    <!-- Rocket -->
+                    <g transform="translate(280,60) rotate(30)">
+                        <ellipse cx="0" cy="0" rx="20" ry="35" fill="#ffcc66" />
+                        <circle cx="0" cy="-10" r="6" fill="#ffffff" />
+                        <polygon points="-20,10 20,10 0,35" fill="#ff5e7e" />
+                    </g>
+
+                    <!-- Name -->
+                    <text x="340" y="165" font-family="Great Vibes, cursive" font-size="80" fill="#ff5e7e">
+                        Priya Yadav
+                    </text>
+
+                    <!-- Subtitle -->
+                    <text x="345" y="210" font-family="Montserrat, sans-serif" font-size="28" letter-spacing="6"
+                        fill="#777777">
+                        MBA GRADUATE
+                    </text>
+                </svg>
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#hero" class="nav-link active">Home</a></li>
@@ -479,8 +520,32 @@
         <div class="container">
             <div class="footer-content">
                 <a href="#hero" class="footer-logo">
-                    <span class="logo-text">Priya Yadav</span>
-                    <span class="logo-dot">.</span>
+                    <svg width="200" height="66" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg"
+                        class="logo-svg footer-svg">
+                        <defs>
+                            <linearGradient id="footerPinkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ff7a9c" />
+                                <stop offset="100%" stop-color="#ff4f81" />
+                            </linearGradient>
+                            <linearGradient id="footerTrailGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#ffb3c6" />
+                                <stop offset="100%" stop-color="#ff6f91" />
+                            </linearGradient>
+                        </defs>
+                        <text x="80" y="210" font-family="Playfair Display, serif" font-size="200" font-weight="700"
+                            fill="url(#footerPinkGradient)">P</text>
+                        <path d="M140 180 C220 160, 260 110, 300 90" stroke="url(#footerTrailGradient)"
+                            stroke-width="10" fill="none" stroke-linecap="round" />
+                        <g transform="translate(280,60) rotate(30)">
+                            <ellipse cx="0" cy="0" rx="20" ry="35" fill="#ffcc66" />
+                            <circle cx="0" cy="-10" r="6" fill="#ffffff" />
+                            <polygon points="-20,10 20,10 0,35" fill="#ff5e7e" />
+                        </g>
+                        <text x="340" y="165" font-family="Great Vibes, cursive" font-size="80" fill="#ff5e7e">Priya
+                            Yadav</text>
+                        <text x="345" y="210" font-family="Montserrat, sans-serif" font-size="28" letter-spacing="6"
+                            fill="#777777">MBA GRADUATE</text>
+                    </svg>
                 </a>
                 <p class="footer-text">Designed with <span class="heart">♥</span> by Priya Yadav</p>
                 <div class="footer-social">

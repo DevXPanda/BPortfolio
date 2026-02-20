@@ -270,6 +270,33 @@ ul {
     line-height: 1;
 }
 
+.logo-img {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+    transition: transform var(--transition-base);
+}
+
+.nav-logo:hover .logo-img,
+.nav-logo:hover .logo-svg,
+.footer-logo:hover .logo-img,
+.footer-logo:hover .footer-svg {
+    transform: scale(1.05);
+}
+
+.logo-svg {
+    transition: transform var(--transition-base);
+}
+
+.footer-logo .logo-img,
+.footer-logo .footer-svg {
+    height: 100px;
+    background: #fff;
+    padding: 12px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
 .nav-links {
     display: flex;
     align-items: center;
